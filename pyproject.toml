@@ -1,0 +1,22 @@
+[project]
+name = "mcpm"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Nikita Denissov",email = "n.denissov@ppa.kz"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "requests (>=2.32.5,<3.0.0)",
+    "tomli (>=2.3.0,<3.0.0)",
+    "tomli-w (>=1.2.0,<2.0.0)",
+    "packaging (>=25.0,<26.0)",
+    "rich (>=14.2.0,<15.0.0)",
+    "cloudscraper (>=1.2.71,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
