@@ -1,4 +1,4 @@
-# mcpm/const.py
+from __future__ import annotations
 
 SOURCE_ICONS = {
     "modrinth": "[green]M[/]",
@@ -18,7 +18,7 @@ jar_name = "server.jar"
 [dependencies]
 """
 
-# Приоритет источников при поиске (меньше = важнее)
+# Priority order for search engines (lower values represent higher priority)
 SOURCE_PRIORITY = {
     "modrinth": 1,
     "hangar": 2,
