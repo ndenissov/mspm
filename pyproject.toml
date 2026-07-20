@@ -1,12 +1,19 @@
 [project]
-name = "mcpm"
-version = "0.1.0"
-description = ""
+name = "mspm"
+version = "2.0.0"
+description = "A command-line package manager for Minecraft server plugins."
 authors = [
-    {name = "Nikita Denissov",email = "n.denissov@ppa.kz"}
+    { name = "Nikita Denissov", email = "n.denissov@ppa.kz" }
 ]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Utilities"
+]
 dependencies = [
     "requests (>=2.32.5,<3.0.0)",
     "tomli (>=2.3.0,<3.0.0)",
@@ -20,7 +27,12 @@ dependencies = [
     "webdriver-manager (>=4.0.2,<5.0.0)"
 ]
 
-
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[project.urls]
+Homepage = "https://github.com/ndenissov/mspm"
+
+[project.scripts]
+mspm = "mspm.cli:main"
