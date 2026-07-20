@@ -36,8 +36,9 @@ class ResolverEngine:
                             "id": hit["slug"],
                             "desc": hit["description"][:60]
                         })
-            except Exception:
-                pass
+            except Exception as e:
+                if self.debug:
+                    console.log(f"[dim]Modrinth search exception: {e}[/]")
 
         async def search_hangar():
             try:
@@ -54,8 +55,9 @@ class ResolverEngine:
                             "id": slug,
                             "desc": hit["description"][:60]
                         })
-            except Exception:
-                pass
+            except Exception as e:
+                if self.debug:
+                    console.log(f"[dim]Hangar search exception: {e}[/]")
 
         async def search_spigot():
             try:
@@ -71,8 +73,9 @@ class ResolverEngine:
                             "id": str(hit["id"]),
                             "desc": hit.get("tag", "")[:60]
                         })
-            except Exception:
-                pass
+            except Exception as e:
+                if self.debug:
+                    console.log(f"[dim]Spigot search exception: {e}[/]")
 
         async def search_bukkit():
             try:
@@ -96,8 +99,9 @@ class ResolverEngine:
                                 "id": str(hit["id"]),
                                 "desc": hit.get("summary", "")[:60]
                             })
-            except Exception:
-                pass
+            except Exception as e:
+                if self.debug:
+                    console.log(f"[dim]Bukkit search exception: {e}[/]")
 
         await asyncio.gather(search_modrinth(), search_hangar(), search_spigot(), search_bukkit())
         return results
@@ -115,8 +119,9 @@ class ResolverEngine:
                 )
                 if r.json():
                     return str(r.json()[0]['id'])
-            except Exception:
-                pass
+            except Exception as e:
+                if self.debug:
+                    console.log(f"[dim]Spigot discover_id exception: {e}[/]")
         if source == "bukkit":
             try:
                 r = await self.client.get(
@@ -126,8 +131,9 @@ class ResolverEngine:
                 hits = r.json().get("data")
                 if hits:
                     return str(hits[0]['id'])
-            except Exception:
-                pass
+            except Exception as e:
+                if self.debug:
+                    console.log(f"[dim]Bukkit discover_id exception: {e}[/]")
         return None
 
     async def resolve(self, name, spec, compat_checker):
@@ -177,8 +183,9 @@ class ResolverEngine:
                 jars = [a for a in assets if a["name"].endswith(".jar")]
                 if jars:
                     return jars[0]["browser_download_url"]
-        except Exception:
-            pass
+        except Exception as e:
+            if self.debug:
+                console.log(f"[dim]GitHub resolve exception: {e}[/]")
         return url
 
     async def _res_modrinth(self, name, slug, req_ver):
@@ -283,7 +290,9 @@ class ResolverEngine:
                 }
             if found_any:
                 return {"error": "incompatible", "versions": [v["name"] for v in versions[:5]]}
-        except Exception:
+        except Exception as e:
+            if self.debug:
+                console.log(f"[dim]Hangar exception: {e}[/]")
             return None
         return None
 
@@ -323,7 +332,9 @@ class ResolverEngine:
                 "spigot_res_id": resid,
                 "spigot_ver_id": target['id']
             }
-        except Exception:
+        except Exception as e:
+            if self.debug:
+                console.log(f"[dim]Spigot exception: {e}[/]")
             return None
 
     async def _res_bukkit(self, name, pid, req_ver, compat_check):

@@ -35,7 +35,8 @@ def download_with_browser(download_url: str, dest_path: Path) -> bool:
     """
     if not HAS_SELENIUM:
         console.print(
-            "[red]Selenium or Webdriver is not installed. Install via: pip install selenium webdriver-manager[/]")
+            "[red]Selenium or Webdriver is not installed. Install via: pip install selenium webdriver-manager[/]"
+        )
         return False
 
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -55,8 +56,8 @@ def download_with_browser(download_url: str, dest_path: Path) -> bool:
                 chrome_options.add_argument("--disable-blink-features=AutomationControlled")
                 service = ChromeService(ChromeDriverManager().install())
                 driver = webdriver.Chrome(service=service, options=chrome_options)
-            except Exception:
-                console.print("[dim]Chrome initialization failed. Attempting Firefox fallback...[/]")
+            except Exception as e:
+                console.print(f"[dim]Chrome initialization failed ({e}). Attempting Firefox fallback...[/]")
                 ff_options = FirefoxOptions()
                 ff_options.set_preference("browser.download.folderList", 2)
                 ff_options.set_preference("browser.download.dir", str(temp_path))
@@ -118,7 +119,8 @@ def get_cookies_via_browser(url: str):
     """
     if not HAS_SELENIUM:
         console.print(
-            "[red]Selenium or Webdriver is not installed. Install via: pip install selenium webdriver-manager[/]")
+            "[red]Selenium or Webdriver is not installed. Install via: pip install selenium webdriver-manager[/]"
+        )
         return {}, None
     driver = None
     try:
@@ -127,7 +129,8 @@ def get_cookies_via_browser(url: str):
             chrome_options.add_argument("--disable-blink-features=AutomationControlled")
             service = ChromeService(ChromeDriverManager().install())
             driver = webdriver.Chrome(service=service, options=chrome_options)
-        except Exception:
+        except Exception as e:
+            console.print(f"[dim]Chrome initialization failed ({e}). Attempting Firefox fallback...[/]")
             ff_options = FirefoxOptions()
             service = FirefoxService(GeckoDriverManager().install())
             driver = webdriver.Firefox(service=service, options=ff_options)

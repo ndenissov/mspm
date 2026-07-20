@@ -181,8 +181,9 @@ class PackageManager:
                         for chunk in r.iter_content(8192):
                             f.write(chunk)
                     return True
-                except Exception:
-                    pass
+                except Exception as e:
+                    if self.debug:
+                        console.log(f"[dim]Cloudscraper download exception: {e}[/]")
 
             async with self.browser_lock:
                 if self.cached_cookies:
@@ -217,7 +218,9 @@ class PackageManager:
                     async for chunk in r.aiter_bytes():
                         f.write(chunk)
             return True
-        except Exception:
+        except Exception as e:
+            if self.debug:
+                console.log(f"[dim]Cookie download exception ({url}): {e}[/]")
             return False
 
     async def run_tasks(self, task_mode="install"):
@@ -284,6 +287,7 @@ class PackageManager:
             console.print("\n[bold yellow]Compatibility Warnings:[/]")
             for name, vers in incompatible:
                 v_str = ", ".join(vers[:3]) + "..." if vers else "None"
+                console.print(f'[dim]{v_str}[/]')
                 if Confirm.ask(f"Force install [cyan]{name}[/] anyway?"):
                     real_key = get_real_key(self.config["dependencies"], name) or name
                     self.config["dependencies"][real_key]["allow_untested"] = True
