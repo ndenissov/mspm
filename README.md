@@ -20,10 +20,6 @@ To install the package directly from PyPI, run:
 pip install mspm
 ```
 
-```bash
-pip install selenium webdriver-manager
-```
-
 ## Configuration
 
 When run for the first time, MSPM generates a template configuration file named `mspm.toml` in your working directory.
@@ -97,3 +93,5 @@ mspm remove EssentialsX
 ## License
 
 This software is released under the MIT License.
+
+Author: Nikita Denissov
