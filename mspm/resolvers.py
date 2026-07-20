@@ -163,7 +163,7 @@ class ResolverEngine:
         if source == "modrinth":
             return await self._res_modrinth(name, res_id, spec.get("version"))
         if source == "hangar":
-            return await self._res_hangar(name, res_id, spec.get("version"), compat_checker)
+            return await self._res_hangar(name, res_id, spec.get("version"))
         if source == "spigot":
             return await self._res_spigot(name, res_id, spec.get("version"), compat_checker)
         if source == "bukkit":
@@ -241,10 +241,10 @@ class ResolverEngine:
                 return {"error": "incompatible", "versions": [v["version_number"] for v in versions[:5]]}
         except Exception as e:
             if self.debug:
-                console.log(f"Modrinth exception: {e}")
+                console.log(f"[dim]Modrinth exception: {e}[/]")
         return None
 
-    async def _res_hangar(self, name, slug, req_ver, compat_check):
+    async def _res_hangar(self, name, slug, req_ver):
         try:
             r = await self.client.get(
                 f"https://hangar.papermc.io/api/v1/projects/{slug}/versions",
@@ -350,20 +350,22 @@ class ResolverEngine:
             files.sort(key=lambda x: x['id'], reverse=True)
             for f in files:
                 if req_ver and req_ver in f.get("displayName", ""):
-                    return self._fmt_bukkit(f, pid, real_name)
+                    return self._fmt_bukkit(f, real_name)
                 if not req_ver:
                     if self.server_version in f["gameVersions"] or self.server_major in f["gameVersions"]:
-                        return self._fmt_bukkit(f, pid, real_name)
+                        return self._fmt_bukkit(f, real_name)
 
             latest = files[0]
             if not compat_check(name, latest["gameVersions"], "Bukkit"):
                 return {"error": "incompatible", "versions": latest["gameVersions"]}
-            return self._fmt_bukkit(latest, pid, real_name)
-        except Exception:
+            return self._fmt_bukkit(latest, real_name)
+        except Exception as e:
+            if self.debug:
+                console.log(f"[dim]Bukkit exception: {e}[/]")
             return None
 
     @staticmethod
-    def _fmt_bukkit(f, pid, rname):
+    def _fmt_bukkit(f, rname):
         h = next((i["value"] for i in f.get("hashes", []) if i["algo"] == 1), "")
         return {
             "source": "bukkit",

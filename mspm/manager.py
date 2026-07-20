@@ -20,7 +20,7 @@ from rich.live import Live
 from rich.prompt import Confirm
 from rich.table import Table
 from .browser import get_cookies_via_browser
-from .const import SOURCE_ICONS, DEFAULT_CONFIG, SOURCE_PRIORITY
+from .const import DEFAULT_CONFIG, SOURCE_ICONS, SOURCE_PRIORITY
 from .resolvers import ResolverEngine
 from .utils import get_real_key
 
@@ -84,14 +84,7 @@ class PackageManager:
         with open(self.config_path, "wb") as f:
             tomli_w.dump(self.config, f)
 
-        if "dependencies" in self.lock_data:
-            self.lock_data["dependencies"] = dict(
-                sorted(self.lock_data["dependencies"].items(), key=lambda i: i[0].lower())
-            )
-        with open(self.lock_path, "wb") as f:
-            tomli_w.dump(self.lock_data, f)
-
-    def check_compatibility(self, name, supported_versions, source_name) -> bool:
+    def check_compatibility(self, name, supported_versions) -> bool:
         if self.allow_untested_global:
             return True
 
@@ -300,7 +293,6 @@ class PackageManager:
             if get_real_key(self.config.get("dependencies", {}), name):
                 console.print(f"[yellow]Skipping {name}: already exists[/]")
                 continue
-            entry = {}
             final_name = name
             if not source:
                 console.print(f"[dim]Searching {name}...[/]")
