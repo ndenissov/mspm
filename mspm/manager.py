@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+__all__ = ('PackageManager',)
+
 import asyncio
 import sys
 from pathlib import Path

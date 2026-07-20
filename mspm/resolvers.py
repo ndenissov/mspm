@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+__all__ = ('ResolverEngine',)
+
 import asyncio
 import re
 
