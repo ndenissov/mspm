@@ -1,28 +1,38 @@
 [project]
 name = "mspm"
-version = "2.1.0"
+version = "2.2.0"
 description = "A command-line package manager for Minecraft server plugins."
 authors = [
     { name = "Nikita Denissov", email = "n.denissov@proton.me" }
 ]
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = "MIT"
 classifiers = [
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: Games/Entertainment",
+    "Topic :: Games/Entertainment :: Role-Playing",
+    "Topic :: System :: Software Distribution",
+    "Topic :: System :: Systems Administration",
     "Topic :: Utilities"
 ]
 dependencies = [
-    "selenium>=4.0.0,<4.39.0; python_version >= '3.8' and python_version < '3.10'",
-    "selenium>=4.39.0,<5.0.0; python_version >= '3.10'",
-    "rich>=14.2.0,<15.0.0; python_version >= '3.8' and python_version < '3.9'",
-    "rich>=14.2.0,<16.0.0; python_version >= '3.9'",
-    "tomli-w>=1.0.0,<1.2.0; python_version >= '3.8' and python_version < '3.9'",
-    "tomli-w>=1.2.0,<2.0.0; python_version >= '3.9'",
-    "tomli>=2.4.1,<3.0.0",
-    "cloudscraper>=1.2.71,<2.0.0",
-    "httpx>=0.28.1,<0.29.0",
+    "httpx (>=0.28.1,<0.29.0)",
+    "selenium (>=4.46.0,<5.0.0)",
+    "cloudscraper (>=1.2.71,<2.0.0)",
+    "rich (>=15.0.0,<16.0.0)",
+    "tomli-w (>=1.2.0,<2.0.0)",
+    "tomli (>=2.4.1,<3.0.0)"
 ]
 
 [build-system]
@@ -31,6 +41,7 @@ build-backend = "poetry.core.masonry.api"
 
 [project.urls]
 Homepage = "https://github.com/ndenissov/mspm"
+Repository = "https://github.com/ndenissov/mspm"
 
 [project.scripts]
 mspm = "mspm.cli:main"
