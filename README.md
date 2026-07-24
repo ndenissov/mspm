@@ -1,4 +1,9 @@
 # MSPM: Minecraft Package Manager
+[![PyPI version](https://img.shields.io/pypi/v/mspm.svg?style=flat-square)](https://pypi.org/project/mspm/)
+[![Python versions](https://img.shields.io/pypi/pyversions/mspm.svg?style=flat-square)](https://pypi.org/project/mspm/)
+[![PyPI Downloads](https://static.pepy.tech/badge/mspm?style=flat-square)](https://pepy.tech/project/mspm)
+[![License](https://img.shields.io/pypi/l/mspm.svg?style=flat-square)](https://github.com/ndenissov/mspm/blob/main/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/ndenissov/numbeogo)](https://github.com/ndenissov/numbeogo/stargazers)
 
 MSPM is a command-line utility designed to automate the resolution, installation, and management of Minecraft server
 plugins. It retrieves packages from multiple popular upstream repositories, verifies software compatibility constraints,
