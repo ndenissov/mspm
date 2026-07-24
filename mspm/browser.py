@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 __all__ = ('download_with_browser', 'get_cookies_via_browser')
 
 import logging

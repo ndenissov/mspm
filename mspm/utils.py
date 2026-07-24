@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 __all__ = ('calculate_hash', 'get_real_key')
 
 import hashlib

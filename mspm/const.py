@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 SOURCE_ICONS = {
     "modrinth": "[green]M[/]",
     "spigot": "[orange1]S[/]",
